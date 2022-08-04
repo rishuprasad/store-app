@@ -1,0 +1,145 @@
+<!--Chris-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+.column {
+  float: left;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+.left {
+  width: 25%;
+}
+
+.right {
+  width: 75%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+<title>Profile</title>
+<link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }} />
+<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+</head>
+<body>
+<div id="title">
+	<a href="/home">
+		<img id="logo" src= {{ url_for('static', filename='images/logo.png') }} />
+	</a>
+	<form>
+		<input id="searchBox" type="text" name="searchQuery">
+		<input id="searchButton" type="submit" value="Search">
+	</form>
+
+	{% if not loggedIn %}
+	<div id="signInButton">
+		<a class="link" href="/loginForm">Sign In</a>
+	</div>
+	{% else %}
+	<div class="dropdown">
+		<button class="dropbtn">Hello, <br>{{first_name}}</button>
+		<div class="dropdown-content">
+			<a href="/orderHistory">Your orders</a>
+			<a href="/profileForm">Your profile</a>
+			<a href="/membershipForm">Your Membership</a>
+			<hr>
+			<a href="/logout">Sign Out</a>
+		</div>
+	</div>
+	{% endif %}
+	{% if isAdmin %}
+	<a href="/addItemForm">Add Products (Admin)</a>
+	{% else %}
+	{% endif %}
+	<div id="kart">
+		<a class="link" href="/cart">
+			<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+		</a>
+	</div>
+</div>
+<div class="display">
+	<div>
+		<h2>Your Profile</h2>
+		{% for data in profileData %}
+		<table>
+			<tr id="username">
+				{% for row in data %}
+				<td>
+					Username: {{row[0]}}
+				</td>
+				{% endfor %}
+			</tr>
+			<tr id="password">
+				{% for row in data %}
+				<td>
+					Password: {{row[1]}}
+				</td>
+				{% endfor %}
+			</tr>
+			<tr id="first_name">
+				{% for row in data %}
+				<td>
+					First Name: {{row[2]}}
+				</td>
+				{% endfor %}
+			</tr>
+            <tr id="last_name">
+				{% for row in data %}
+				<td>
+					Last Name: {{row[3]}}
+				</td>
+				{% endfor %}
+			</tr>
+            <tr id="email">
+				{% for row in data %}
+				<td>
+					Email: {{row[4]}}
+				</td>
+				{% endfor %}
+			</tr>
+		</table>
+		{% endfor %}
+	</div>
+</div>
+
+
+{% if isAdmin %}
+<form action="/editProfileForm">
+    <input type="submit" value="Edit a Profile" />
+</form>
+<br>
+<form action="/deleteProfileAdmin1">
+    <input type="submit" value="Delete a Profile" />
+</form>
+<br>
+<form action="/editProductForm">
+    <input type="submit" value="Edit a Product" />
+</form>
+<br>
+<form action="/deleteProductForm">
+    <input type="submit" value="Delete a Product" />
+</form>
+<br>
+<form action="/editOrderForm">
+    <input type="submit" value="Edit an Order" />
+</form>
+<br>
+<form action="/deleteOrderForm">
+    <input type="submit" value="Delete an Order" />
+</form>
+{% else %}
+<form action="/editProfileForm">
+    <input type="submit" value="Edit Your Profile" />
+</form>
+{% endif %}
+
+</body>
+</html>
+

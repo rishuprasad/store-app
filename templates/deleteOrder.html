@@ -1,0 +1,55 @@
+<!-- Joycelin -->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Delete an Order </title>
+<link rel="stylesheet" href={{ url_for('static', filename='css/editProfile.css') }} />
+<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+</head>
+<body>
+<div id="title">
+	<a href="/home">
+		<img id="logo" src= {{ url_for('static', filename='images/logo.png') }} />
+	</a>
+	<form>
+		<input id="searchBox" type="text" name="searchQuery">
+		<input id="searchButton" type="submit" value="Search">
+	</form>
+
+	{% if not loggedIn %}
+	<div id="signInButton">
+		<a class="link" href="/loginForm">Sign In</a>
+	</div>
+	{% else %}
+	<div class="dropdown">
+		<button class="dropbtn">Hello, <br>{{first_name}}</button>
+		<div class="dropdown-content">
+			<a href="/orderHistory">Your orders</a>
+			<a href="/profileForm">Your profile</a>
+			<hr>
+			<a href="/logout">Sign Out</a>
+		</div>
+	</div>
+	{% endif %}
+	<a href="/addItemForm">Add Products (Admin)</a>
+	<div id="kart">
+		<a class="link" href="/cart">
+			<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+		</a>
+	</div>
+</div>
+
+<div class="display">
+	<h2>Delete an Order</h2>
+	
+
+	<form action="/deleteOrder" method="POST">
+		<p>Order ID: <input type="text" name="order_id" ></p>
+		<input type="submit" value="Delete Order">
+	</form>
+
+
+</div>
+</body>
+</html>
+
