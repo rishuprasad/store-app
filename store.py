@@ -3,7 +3,7 @@ import sqlite3
 # Joycelin 
 conn = sqlite3.connect('store.db')
 
-conn.execute('''DROP TABLE product''')
+# conn.execute('''DROP TABLE product''')
 
 conn.execute('''CREATE TABLE IF NOT EXISTS account
             (user_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
